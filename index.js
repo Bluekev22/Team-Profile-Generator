@@ -156,28 +156,30 @@ function managerQuestions() {
   };
 
   function beginHTML() {
+    for(var a in teamEngineers) {
+     let HTMLData = generateEngineersHTML((teamEngineers[a]))
+    }
     writeFileAsync('./dist/index.html', generateHTML());
     fs.appendFile('./dist/index.html', generateManagerHTML(teamManager), function(err){
       if (err) throw err;
     });
-    fs.appendFile('./dist/index.html', generateEngineersHTML(teamEngineers), function(err){
+    fs.appendFile('./dist/index.html', HTMLData, function(err){
       if (err) throw err;
     });
   }
 
   
   function generateEngineersHTML(teamEngineers) {
-    for (const engineer of teamEngineers) {
-    return `<div class="col-2">
+    return`<div class="col-2">
     <div class="row card">
-        <div class="col-12"><h3>${engineer.name}</h3></div>
-        <div class="col-12"><h4><i class="fas fa-glasses"></i>${engineer.getRole()}</h4></div>
+        <div class="col-12"><h3>${teamEngineers[a].name}</h3></div>
+        <div class="col-12"><h4><i class="fas fa-glasses"></i> ${teamEngineers[a].getRole()}</h4></div>
     </div>
     <div class="row info">
-        <div class="col-12"><p>ID: ${engineer.id}</p><p>Email: ${engineer.email}</p><p>Office: ${engineer.github}</p></div>
+        <div class="col-12"><p>ID: ${teamEngineers[a].id}</p><p>Email: ${teamEngineers[a].email}</p><p>Office: ${teamEngineers[a].github}</p></div>
     </div>
  </div>`
-   }}
+   }
 
   function endOfHTMLPage() {
     return `</div>
