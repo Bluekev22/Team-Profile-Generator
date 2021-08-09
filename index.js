@@ -5,6 +5,7 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 const generateHTML = require('./src/generateHTML');
+const generateManagerHTML = require('./src/generateManagerHTML');
 
 const generatedHTMLPath = "./dist/TeamProfile.html";
 
@@ -162,32 +163,21 @@ function managerQuestions() {
     fs.appendFile('./dist/index.html', generateEngineersHTML(teamEngineers), function(err){
       if (err) throw err;
     });
-
   }
 
-  function generateManagerHTML(teamManager) {
-   return `<div class="col-2">
-   <div class="row card">
-       <div class="col-12"><h3>${teamManager[0].name}</h3></div>
-       <div class="col-12"><h4><i class="fas fa-mug-hot"></i>${teamManager[0].getRole()}</h4></div>
-   </div>
-   <div class="row info">
-       <div class="col-12"><p>ID:${teamManager[0].id}</p><p>Email:${teamManager[0].email}</p><p>Office:${teamManager[0].officeNumber}</p></div>
-   </div>
-</div>`
-  }
   
   function generateEngineersHTML(teamEngineers) {
+    for (const engineer of teamEngineers) {
     return `<div class="col-2">
     <div class="row card">
-        <div class="col-12"><h3>${teamManager[0].name}</h3></div>
-        <div class="col-12"><h4><i class="fas fa-mug-hot"></i>${teamManager[0].getRole()}</h4></div>
+        <div class="col-12"><h3>${engineer.name}</h3></div>
+        <div class="col-12"><h4><i class="fas fa-glasses"></i>${engineer.getRole()}</h4></div>
     </div>
     <div class="row info">
-        <div class="col-12"><p>ID:${teamManager[0].id}</p><p>Email:${teamManager[0].email}</p><p>Office:${teamManager[0].officeNumber}</p></div>
+        <div class="col-12"><p>ID: ${engineer.id}</p><p>Email: ${engineer.email}</p><p>Office: ${engineer.github}</p></div>
     </div>
  </div>`
-   }
+   }}
 
   function endOfHTMLPage() {
     return `</div>
