@@ -1,4 +1,7 @@
+//function with teamMembers array passed as a variable
 const makeTeam = teamMembers => {
+    //function that takes manager array that was filtered and mapped from below
+    //and returns a string of HTML
     const makeManager = manager => {
         return `<div class="col-2">
         <div class="row card">
@@ -11,6 +14,8 @@ const makeTeam = teamMembers => {
      </div>`
     }
 
+    //function that takes engineer arrays that were filtered and mapped from below
+    //and returns a string of HTML
     const makeEngineer = engineer => {
         return `<div class="col-2">
     <div class="row card">
@@ -25,6 +30,8 @@ const makeTeam = teamMembers => {
  </div>`
     }
 
+    //function that takes intern arrays that were filtered and mapped from below
+    //and returns a string of HTML
     const makeIntern = intern => {
         return `<div class="col-2">
         <div class="row card">
@@ -39,8 +46,11 @@ const makeTeam = teamMembers => {
      </div>`
     }
 
+    //declare a variable with an empty array
     const html = [];
 
+    //filters then maps the teamMembers array based on getRole
+    //then pushes the string returned from each into the html array
     html.push(teamMembers
         .filter(emp => emp.getRole() === "Manager"))
         .map(manager => makeManager(manager))
@@ -51,10 +61,11 @@ const makeTeam = teamMembers => {
         .filter(emp => emp.getRole() === "Intern"))
         .map(intern => makeIntern(intern))
 
-        return HTML;
+        //returns the html to be appended to the HTML file 
+        return html;
         
 
 }
 
-
+   //exports the makeTeam module
    module.exports = makeTeam;
