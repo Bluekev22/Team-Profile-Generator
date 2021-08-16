@@ -5,9 +5,7 @@ const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 const generateHTML = require("./src/generateHTML");
-const generateManagerHTML = require("./src/generateManagerHTML");
-
-const generatedHTMLPath = "./dist/TeamProfile.html";
+const generateTeamMembersHTML = require("./src/generateTeamMembersHTML");
 
 let teamMembers = [];
 
@@ -178,38 +176,12 @@ function EngineerQuestions() {
 }
 
 function beginHTML() {
-  let HTMLData = generateEngineersHTML(teamEngineers);
   writeFileAsync("./dist/index.html", generateHTML());
-  fs.appendFile(
-    "./dist/index.html",
-    generateManagerHTML(teamManager),
-    function (err) {
-      if (err) throw err;
-    }
-  );
-  fs.appendFile("./dist/index.html", HTMLData, function (err) {
-    if (err) throw err;
-  });
+  
 }
 
-function generateEngineersHTML(teamEngineers) {
-  for (let i = 0; i < teamEngineers.length; i++) {
-    var template = `<div class="col-2">
-    <div class="row card">
-        <div class="col-12"><h3>${teamEngineers[i].name}</h3></div>
-        <div class="col-12"><h4><i class="fas fa-glasses"></i> ${teamEngineers[
-          
-        ].getRole()}</h4></div>
-    </div>
-    <div class="row info">
-        <div class="col-12"><p>ID: ${teamEngineers[i].id}</p><p>Email: ${
-      teamEngineers[i].email
-    }</p><p>Office: ${teamEngineers[i].github}</p></div>
-    </div>
- </div>`;
-  }
-  console.log(template);
-}
+
+
 
 function endOfHTMLPage() {
   return `</div>
