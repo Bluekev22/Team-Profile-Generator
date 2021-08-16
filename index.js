@@ -1,3 +1,4 @@
+//bring in all required modules
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
@@ -7,10 +8,13 @@ const Engineer = require("./lib/Engineer");
 const generateHTML = require("./src/generateHTML");
 const generateTeamMembersHTML = require("./src/generateTeamMembersHTML");
 
+//call a variable as an empty array to place team member objects
 let teamMembers = [];
 
+//creates promise
 const writeFileAsync = util.promisify(fs.writeFile);
 
+//starts the prompts beginning with the manager questions
 function managerQuestions() {
   return inquirer
     .prompt([
@@ -41,6 +45,7 @@ function managerQuestions() {
         choices: ["Engineer", "Intern"],
       },
     ])
+    //creates a manager object from answers
     .then((answers) => {
       let manager = new Manager(
         answers.managerName,
@@ -48,12 +53,11 @@ function managerQuestions() {
         answers.managerEmail,
         answers.managerOfficeNumber
       );
+      //pushes the manager object into the teamMembers array above
       teamMembers.push(manager);
-      // if (answers.addTeamMember === "Intern") {
-      //    internQuestions();
-      // } if (answers.addTeamMember === "Engineer") {
-      //     EngineerQuestions();
-      // }
+
+      //this switch statement is to direct user to either Engineer questions
+      //or Intern questions
       switch (answers.addTeamMember) {
         case "Engineer":
           EngineerQuestions();
@@ -65,10 +69,10 @@ function managerQuestions() {
           return;
       }
     })
-
+    //shows error if any
     .catch((err) => console.error(err));
 }
-
+//intern questions prompt
 function internQuestions() {
   return inquirer
     .prompt([
@@ -99,7 +103,7 @@ function internQuestions() {
         choices: ["Engineer", "Intern", "Exit"],
       },
     ])
-
+    //creates intern object with input provided
     .then((answers) => {
       let intern = new Intern(
         answers.internName,
@@ -107,21 +111,28 @@ function internQuestions() {
         answers.internEmail,
         answers.internSchool
       );
+      //pushs the intern object into the teamMembers variable above
       teamMembers.push(intern);
-      if (answers.addTeamMember === "Intern") {
-        internQuestions();
-      }
-      if (answers.addTeamMember === "Engineer") {
-        EngineerQuestions();
-      }
-      if (answers.addTeamMember === "Exit") {
-        generateHTML();
+
+      //this switch statement is to direct user to either Engineer questions,
+      //intern questions, or exits the prompts and generates HTML file
+      switch (answers.addTeamMember) {
+        case "Engineer":
+          EngineerQuestions();
+          break;
+        case "Intern":
+          internQuestions();
+          break;
+        case "Exit":
+          beginHTML();
+        default:
+          return;
       }
     })
-
+    //shows error if any
     .catch((err) => console.error(err));
 }
-
+//Engineer question prompts
 function EngineerQuestions() {
   return inquirer
     .prompt([
@@ -152,7 +163,7 @@ function EngineerQuestions() {
         choices: ["Engineer", "Intern", "Exit"],
       },
     ])
-
+    //creates engineer object with the input provided
     .then((answers) => {
       let engineer = new Engineer(
         answers.engineerName,
@@ -160,29 +171,41 @@ function EngineerQuestions() {
         answers.engineerEmail,
         answers.engineerGithub
       );
+      //pushes engineer object into teamMembers array above
       teamMembers.push(engineer);
-      if (answers.addTeamMember === "Intern") {
-        internQuestions();
-      }
-      if (answers.addTeamMember === "Engineer") {
-        EngineerQuestions();
-      }
-      if (answers.addTeamMember === "Exit") {
-        beginHTML();
+      
+      //this switch statement is to direct user to either Engineer questions,
+      //intern questions, or exits the prompts and generates HTML file
+      switch (answers.addTeamMember) {
+        case "Engineer":
+          EngineerQuestions();
+          break;
+        case "Intern":
+          internQuestions();
+          break;
+        case "Exit":
+          beginHTML();
+        default:
+          return;
       }
     })
-
+    //shows error if any
     .catch((err) => console.error(err));
 }
 
+//function to write the HTML file
 function beginHTML() {
+  //creates file and writes the beginning of the HTML
   writeFileAsync("./dist/index.html", generateHTML());
+  //appends the team members HTML to the file already created
+  fs.appendFileSync("./dist/index.html",generateTeamMembersHTML(teamMembers));
+  fs.appendFileSync("./dist/index.html",endOfHTMLPage());
   
 }
 
 
 
-
+//function that returns the end of the HTML file
 function endOfHTMLPage() {
   return `</div>
     </main>
@@ -190,4 +213,5 @@ function endOfHTMLPage() {
 </html>`;
 }
 
+//initializes the succession of prompts starting with the manager questions
 managerQuestions();

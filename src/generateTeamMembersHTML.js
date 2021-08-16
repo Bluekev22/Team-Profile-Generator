@@ -1,4 +1,4 @@
-const makeTeam = team => {
+const makeTeam = teamMembers => {
     const makeManager = manager => {
         return `<div class="col-2">
         <div class="row card">
@@ -34,29 +34,27 @@ const makeTeam = team => {
         <div class="row info">
             <div class="col-12"><p>ID: ${intern.getID()}</p><p>Email: ${
           intern.getEmail()
-        }</p><p>School: ${intern.getSchool}</p></div>
+        }</p><p>School: ${intern.getSchool()}</p></div>
         </div>
      </div>`
     }
 
     const html = [];
 
-    html.push(team
+    html.push(teamMembers
         .filter(emp => emp.getRole() === "Manager"))
         .map(manager => makeManager(manager))
-    html.push(team
+    html.push(teamMembers
         .filter(emp => emp.getRole() === "Engineer"))
         .map(engineer => makeEngineer(engineer))
-    html.push(team
+    html.push(teamMembers
         .filter(emp => emp.getRole() === "Intern"))
         .map(intern => makeIntern(intern))
 
+        return HTML;
         
 
 }
 
 
-   module.exports = team => {
-       return `
-       `
-   }
+   module.exports = makeTeam;
