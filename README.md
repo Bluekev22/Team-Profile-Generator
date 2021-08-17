@@ -1,4 +1,7 @@
 # Team-Profile-Generator[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Walkthrough video:
+https://drive.google.com/file/d/1NhZygq7oZbVu4n7Zw8zi55V1kk022mvK/view
   
 # Table of Contents
   
