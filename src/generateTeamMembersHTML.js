@@ -10,7 +10,7 @@ const makeTeam = (teamMembers) => {
             <div class="col-12"><h4><i class="fas fa-mug-hot"></i> ${manager.getRole()}</h4></div>
         </div>
         <div class="row info">
-            <div class="col-12"><p>ID: ${manager.getId()}</p><p>Email: ${manager.getEmail()}</p><p>Office: ${manager.getOfficeNumber()}</p></div>
+            <div class="col-12"><p>ID: ${manager.getId()}</p><p>Email: <a href="mailto: ${manager.getEmail()}">${manager.getEmail()}</a></p><p>Office: ${manager.getOfficeNumber()}</p></div>
         </div>
      </div>`;
   };
@@ -24,7 +24,7 @@ const makeTeam = (teamMembers) => {
         <div class="col-12"><h4><i class="fas fa-glasses"></i> ${engineer.getRole()}</h4></div>
     </div>
     <div class="row info">
-        <div class="col-12"><p>ID: ${engineer.getId()}</p><p>Email: ${engineer.getEmail()}</p><p>Github: ${engineer.getGithub()}</p></div>
+        <div class="col-12"><p>ID: ${engineer.getId()}</p><p>Email: <a href="mailto: ${engineer.getEmail()}">${engineer.getEmail()}</a></p><p>Github:<a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></p></div>
     </div>
  </div>`;
   };
@@ -38,7 +38,7 @@ const makeTeam = (teamMembers) => {
             <div class="col-12"><h4><i class="fas fa-user-graduate"></i> ${intern.getRole()}</h4></div>
         </div>
         <div class="row info">
-            <div class="col-12"><p>ID: ${intern.getId()}</p><p>Email: ${intern.getEmail()}</p><p>School: ${intern.getSchool()}</p></div>
+            <div class="col-12"><p>ID: ${intern.getId()}</p><p>Email: <a href="mailto: ${intern.getEmail()}">${intern.getEmail()}</a></p><p>School: ${intern.getSchool()}</p></div>
         </div>
      </div>`;
   };
