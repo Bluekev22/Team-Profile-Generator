@@ -1,6 +1,5 @@
 //function with teamMembers array passed as a variable
 const makeTeam = (teamMembers) => {
-  console.log(teamMembers);
   //function that takes manager array that was filtered and mapped from below
   //and returns a string of HTML
   const makeManager = (manager) => {
@@ -64,11 +63,11 @@ const makeTeam = (teamMembers) => {
       .map((intern) => makeIntern(intern))
   );
 
-  //returns the html to be appended to the HTML file
+  //Joins the html strings from each function
   return html.join("");
 };
 
-//exports the makeTeam module
+//generates the final template
 module.exports = (teamMembers) => {
   return `<!DOCTYPE html>
        <html lang="en">
