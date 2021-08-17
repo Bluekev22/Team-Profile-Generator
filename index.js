@@ -2,11 +2,16 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
+const path = require('path');
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 const generateHTML = require("./src/generateHTML");
 const generateTeamMembersHTML = require("./src/generateTeamMembersHTML");
+
+//directory variables using node path
+const OUTPUT_DIR = path.resolve(__dirname, 'dist');
+const opPath = path.join(OUTPUT_DIR, 'teamMember.html');
 
 //call a variable as an empty array to place team member objects
 let teamMembers = [];
@@ -196,22 +201,17 @@ function EngineerQuestions() {
 //function to write the HTML file
 function beginHTML() {
   //creates file and writes the beginning of the HTML
-  writeFileAsync("./dist/index.html", generateHTML());
+
   //appends the team members HTML to the file already created
-  fs.appendFileSync("./dist/index.html",generateTeamMembersHTML(teamMembers));
-  fs.appendFileSync("./dist/index.html",endOfHTMLPage());
+  fs.writeFileSync(opPath, generateTeamMembersHTML(teamMembers), 'utf-8');
+ 
   
 }
 
 
 
 //function that returns the end of the HTML file
-function endOfHTMLPage() {
-  return `</div>
-    </main>
-</body>
-</html>`;
-}
+
 
 //initializes the succession of prompts starting with the manager questions
 managerQuestions();
